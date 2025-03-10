@@ -62,14 +62,22 @@ const App = () => {
   );
 
   const _renderWeatherHourl = () => (
-    <div className='w-full md:px-50 bg-red-400 '>
-      <p>Dự báo thời tiết Hà Nội những ngày tới</p>
-      <div className = "flex flex-row gap-4 items-center">
-        <p>Hôm nay</p>
-        <p>18 ddooj / 24 độ</p>
-        <div className="flex flex-row gap-2 items-center">
-          <p>img</p>
-          <p>Nắng đẹp</p>
+    <div className='w-full md:px-50 p-4 bg-[#cbf2e2]'>
+      <div className="md:w-[70%] w-full p-4 rounded-xl bg-white">
+        <p className="font-600 text-[18px]">Dự báo thời tiết Hà Nội những ngày tới</p>
+        <div className="flex flex-row justify-between items-center py-3 border-b-1 border-[#999999]">
+          <div className="flex flex-row gap-4 items-center">
+            <p>Hôm nay</p>
+            <p>18 ddooj / 24 độ</p>
+            <div className="flex flex-row gap-2 items-center">
+              <p>img</p>
+              <p>Nắng đẹp</p>
+            </div>
+          </div>
+          <div className="flex flex-row gap-4">
+            <p>% mưa</p>
+            <p>Sức gió</p>
+          </div>
         </div>
       </div>
     </div>
@@ -80,7 +88,7 @@ const App = () => {
       <HeaderWeather />
       <div className='w-full bg-[#82b6e9] h-12 shadow-lg'></div>
       <div
-        className='bg-cover bg-center bg-no-repeat pt-10 pb-16 flex flex-col md:flex-row justify-center items-center gap-8'
+        className='bg-cover bg-center bg-no-repeat pt-10 pb-16 flex flex-col md:flex-row justify-center items-center gap-9'
         style={{ backgroundImage: "url('/image/bg-home-lancapse.jpg')" }}
       >
         {_renderWeatherCity()}

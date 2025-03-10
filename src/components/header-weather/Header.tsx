@@ -25,7 +25,7 @@ const HeaderWeather = () => {
         <div className='md:min-w-[500px] bg-[#ffffff14] rounded-md flex flex-row justify-between items-center'>
           <input
             placeholder="Tìm kiếm"
-            className='bg-[#ffffff14] w-full h-full border-none px-4 placeholder-white focus:outline-none text-white'
+            className='bg-[#ffffff14] w-full h-full border-none px-4 placeholder-white focus:outline-none text-white rounded-md'
           />
 
           <div className='px-2 bg-[#ffffff14] h-full flex justify-center items-center'>
