@@ -2,14 +2,15 @@ import { ClockCircleOutlined, SearchOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
 
-// interface Props {
-//   searchCity: string;
-//   callAPIWeather: () => void;
-// }
+interface Props {
+  callAPIWeather: (cityName: string) => void;
+}
 
-const HeaderWeather = () => {
+const HeaderWeather = (props: Props) => {
+  const {callAPIWeather} = props;
   const [currentTime, setCurrentTime] = useState(dayjs());
-  const [searchData, setSearchData] = useState("");
+  const [searchData, setSearchData] = useState("hanoi");
+
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTime(dayjs());
@@ -36,7 +37,7 @@ const HeaderWeather = () => {
           <div className='px-2 bg-[#ffffff14] h-full flex justify-center items-center'>
             <div 
               className='py-2 px-4 flex items-center justify-center cursor-pointer bg-[#098d4b] rounded-sm'
-              onClick = {()=> {}}
+              onClick={() => callAPIWeather(searchData)}
             >
               <SearchOutlined style={{ color: 'white', fontWeight: '600' }} />
             </div>
