@@ -1,9 +1,39 @@
 import HeaderWeather from './components/header-weather/Header.tsx';
 import React from "react";
+import { useState, useEffect } from "react";
 
 const App = () => {
+  const APIKey = "7a7cd355202c6439978c3c98b07dda6a";
+  const [city, setCity] = useState("");
+  const [dataWeather, setDataWeather] = useState(null);
+  const [error, setError] = useState(null);
+  useEffect(() => {
+    callAPIWeather();
+  }, []);
+
+  const callAPIWeather = async () => {
+    // if (!city.trim()) {
+    //   setError("Please enter the name of a city!");
+    //   setDataWeather(null);
+    //   return;
+    // }
+    try {
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=Hanoi&appid=${APIKey}&units=metric&lang=en`
+      );
+      if(!response.ok) throw new Error ("Weather data cannot be retrieved. Try again!");
+      // const data = await response.json();
+      // setDataWeather(data);
+      // setError(null);
+      console.log(response, 'chinh3')
+      console.log(response, 'test');
+    } catch (error) {
+      // setError(error.message);
+      // setDataWeather(null);
+    }
+  }
+
   const _renderWeatherCity = () => (
-    <div className='pt-10 pb-10 px-10 flex flex-col gap-4 text-[#003870] md:min-w-[550px] shadow-xl rounded-[12px] border border-gray-300 bg-white'>
+    <div className='py-10 px-10 flex flex-col gap-4 text-[#003870] md:min-w-[550px] shadow-xl rounded-[12px] border border-gray-300 bg-white'>
       <p className='font-bold text-[24px]'>Dự báo thời tiết Hà Nội</p>
       <p>Hôm nay, 07/03/2025</p>
       <div className='flex flex-col gap-4'>
@@ -33,7 +63,7 @@ const App = () => {
       </div>
     </div >
   );
-  const _renderWeatherBuoi = () => (
+  const _renderDaylyWeather = () => (
     <div className='pt-10 pb-16 md:px-10 w-[96%] px-[15px] flex flex-col gap-4 text-[#003870] max-w-[550px] shadow-xl rounded-[12px] border border-gray-300 bg-white'>
       <p className='font-bold text-[24px]'>Nhiệt độ Hà Nội</p>
       <div className='inline-grid md:grid-cols-4 grid-cols-2 gap-[8px]'>
@@ -85,16 +115,20 @@ const App = () => {
 
   return (
     <div className="App w-full h-full">
-      <HeaderWeather />
+      <HeaderWeather 
+        // searchCity = {city}
+        // callAPIWeather = {callAPIWeather}
+      />
       <div className='w-full bg-[#82b6e9] h-12 shadow-lg'></div>
       <div
         className='bg-cover bg-center bg-no-repeat pt-10 pb-16 flex flex-col md:flex-row justify-center items-center gap-9'
         style={{ backgroundImage: "url('/image/bg-home-lancapse.jpg')" }}
       >
         {_renderWeatherCity()}
-        {_renderWeatherBuoi()}
+        {_renderDaylyWeather()}
       </div>
       {_renderWeatherHourl()}
+
     </div>
   );
 }
