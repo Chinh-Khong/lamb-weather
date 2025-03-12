@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import HeaderWeather from './components/header-weather/Header.tsx';
 import React from "react";
 import { useState, useEffect } from "react";
-import WeatherCity from './components/weather-city/WeatherCity.tsx';
+import WeatherCity from './components/weather-city/WeatherCity.js';
 
 const App = () => {
   const APIKey = "7a7cd355202c6439978c3c98b07dda6a";
@@ -37,7 +37,7 @@ const App = () => {
       setDataForecast(dataForecast);
 
       setError(null);
-    } catch (error: any) {
+    } catch (error) {
       setError(error.message);
       setDataWeather(null);
       setDataForecast(null);
@@ -68,27 +68,34 @@ const App = () => {
 
   const _renderDailyWeather = () => {
     const forecast = getGroupedForecast();
-
+  
     return (
       <div className='pt-5 pb-16 md:px-10 w-full px-[15px] flex flex-col gap-4 text-[#003870] max-w-[550px] shadow-xl rounded-[12px] border border-gray-300 bg-white'>
         <p className='font-bold text-[20px] hover:text-[#098d4b]'>Nhiệt độ {dataWeather && dataWeather.name}</p>
         <div className='inline-grid md:grid-cols-4 grid-cols-2 gap-[8px]'>
           {forecast && Object.entries(forecast).map(([time, data]: any, index) => (
             <div key={index} className='flex flex-col justify-between items-center gap-4 border-r-1 border-gray-100 pr-2'>
-              <p className='font-[600] text-[22px]'>{time === "morning" ? "Sáng" : time === "noon" ? "Trưa" : time === "afternoon" ? "Chiều" : "Tối"}</p>
+              <p className='font-[600] text-[22px]'>
+                {time === "morning" ? "Sáng" : time === "noon" ? "Trưa" : time === "afternoon" ? "Chiều" : "Tối"}
+              </p>
               <img
                 src={`http://openweathermap.org/img/wn/${data?.weather[0].icon}@2x.png`}
                 alt="weather icon"
                 width={87}
                 height={87}
               />
-              <p className="text-[18px] font-[400]">{data ? `${Math.round(data.main.temp_min)}° / ${Math.round(data.main.temp_max)}°` : "N/A"}</p>
+              <p className="text-[18px] font-[400]">
+                {data ? `${Math.round(data.main.temp_min)}° / ${Math.round(data.main.temp_max)}°` : "N/A"}
+              </p>
             </div>
           ))}
         </div>
       </div>
     );
   };
+  
+  
+  
 
   const _renderWeatherHourl = () => (
     <div className='w-full md:px-50 p-4 bg-[#cbf2e2]'>
@@ -111,7 +118,7 @@ const App = () => {
       </div>
     </div>
   );
-
+  
   return (
     <div className="App w-full h-full">
       <HeaderWeather callAPIWeather={callAPIWeather} />
