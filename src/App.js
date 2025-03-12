@@ -3,6 +3,7 @@ import HeaderWeather from './components/header-weather/Header.tsx';
 import React from "react";
 import { useState, useEffect } from "react";
 import WeatherCity from './components/weather-city/WeatherCity.js';
+import HourlyWeather from './components/hourly-weather/HourlyWeather.js';
 
 const App = () => {
   const APIKey = "7a7cd355202c6439978c3c98b07dda6a";
@@ -12,8 +13,9 @@ const App = () => {
   const [dataForecast, setDataForecast] = useState(null);
 
   useEffect(() => {
-    callAPIWeather('Hà Nội')
-  }, [])
+    callAPIWeather('Hà Nội');
+  }, []);
+
   const callAPIWeather = async (cityName: string) => {
     if (!cityName.trim()) {
       setError("Vui lòng nhập tên thành phố!");
@@ -32,15 +34,15 @@ const App = () => {
 
       const data = await response.json();
       const dataForecast = await responseForecast.json();
-      console.log(dataForecast, 'chinh')
+      console.log(dataForecast, 'chinh');
+      
       setDataWeather(data);
-      setDataForecast(dataForecast);
+      setDataForecast(dataForecast.list);
 
       setError(null);
     } catch (error) {
       setError(error.message);
       setDataWeather(null);
-      setDataForecast(null);
     }
   };
 
@@ -54,7 +56,7 @@ const App = () => {
       night: null
     };
 
-    dataForecast.list.forEach((item: any) => {
+    dataForecast.forEach((item: any) => {
       const hour = dayjs(item.dt_txt).hour();
 
       if (hour >= 6 && hour < 12) groupedData.morning = item;
@@ -66,58 +68,47 @@ const App = () => {
     return groupedData;
   };
 
-  const _renderDailyWeather = () => {
+  const _renderSessionWeather = () => {
     const forecast = getGroupedForecast();
-  
+
     return (
       <div className='pt-5 pb-16 md:px-10 w-full px-[15px] flex flex-col gap-4 text-[#003870] max-w-[550px] shadow-xl rounded-[12px] border border-gray-300 bg-white'>
-        <p className='font-bold text-[20px] hover:text-[#098d4b]'>Nhiệt độ {dataWeather && dataWeather.name}</p>
+        <p className='font-bold text-[20px] hover:text-[#098d4b]'>
+          Nhiệt độ {dataWeather && dataWeather.name}
+        </p>
         <div className='inline-grid md:grid-cols-4 grid-cols-2 gap-[8px]'>
-          {forecast && Object.entries(forecast).map(([time, data]: any, index) => (
-            <div key={index} className='flex flex-col justify-between items-center gap-4 border-r-1 border-gray-100 pr-2'>
-              <p className='font-[600] text-[22px]'>
-                {time === "morning" ? "Sáng" : time === "noon" ? "Trưa" : time === "afternoon" ? "Chiều" : "Tối"}
-              </p>
-              <img
-                src={`http://openweathermap.org/img/wn/${data?.weather[0].icon}@2x.png`}
-                alt="weather icon"
-                width={87}
-                height={87}
-              />
-              <p className="text-[18px] font-[400]">
-                {data ? `${Math.round(data.main.temp_min)}° / ${Math.round(data.main.temp_max)}°` : "N/A"}
-              </p>
-            </div>
-          ))}
+          {forecast &&
+            Object.entries(forecast).map(([time, data]: any, index) => (
+              <div
+                key={index}
+                className='flex flex-col justify-between items-center gap-4 border-r-1 border-gray-100 pr-2'
+              >
+                <p className='font-[600] text-[22px]'>
+                  {time === "morning"
+                    ? "Sáng"
+                    : time === "noon"
+                    ? "Trưa"
+                    : time === "afternoon"
+                    ? "Chiều"
+                    : "Tối"}
+                </p>
+                <img
+                  src={`http://openweathermap.org/img/wn/${data?.weather[0].icon}@2x.png`}
+                  alt="weather icon"
+                  width={87}
+                  height={87}
+                />
+                <p className="text-[18px] font-[400]">
+                  {data ? `${Math.round(data.main.temp_min)}° / ${Math.round(data.main.temp_max)}°` : "N/A"}
+                </p>
+              </div>
+            ))}
         </div>
       </div>
     );
   };
-  
-  
-  
 
-  const _renderWeatherHourl = () => (
-    <div className='w-full md:px-50 p-4 bg-[#cbf2e2]'>
-      <div className="md:w-[70%] w-full p-4 rounded-xl bg-white">
-        <p className="font-600 text-[18px]">Dự báo thời tiết Hà Nội những ngày tới</p>
-        <div className="flex flex-row justify-between items-center py-3 border-b-1 border-[#999999]">
-          <div className="flex flex-row gap-4 items-center">
-            <p>Hôm nay</p>
-            <p>18 ddooj / 24 độ</p>
-            <div className="flex flex-row gap-2 items-center">
-              <p>img</p>
-              <p>Nắng đẹp</p>
-            </div>
-          </div>
-          <div className="flex flex-row gap-4">
-            <p>% mưa</p>
-            <p>Sức gió</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+
   
   return (
     <div className="App w-full h-full">
@@ -128,10 +119,9 @@ const App = () => {
         style={{ backgroundImage: "url('/image/bg-home-lancapse.jpg')" }}
       >
         <WeatherCity dataWeather={dataWeather}/>
-        {_renderDailyWeather()}
+        {_renderSessionWeather()}
       </div>
-      {_renderWeatherHourl()}
-
+      {/* <HourlyWeather hourlyForecast={dataForecast.list} /> */}
     </div>
   );
 }

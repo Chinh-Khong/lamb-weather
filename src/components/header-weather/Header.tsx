@@ -23,7 +23,7 @@ const HeaderWeather = (props: Props) => {
     <div className='w-full px-2 bg-[#098d4b] py-3 md:py-6 md:px-50 flex flex-row md:justify-between items-center gap-4'>
       <div className='flex flex-row md:gap-38 gap-3'>
         <img
-          src="./weather-logo.png"
+          src="./image/weather-logo.png"
           width={45}
           height={45}
         />
