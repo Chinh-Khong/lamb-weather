@@ -115,6 +115,13 @@
       min-width: 80px; /* md:min-w-[80px] */
     }
   }
+  @media (max-width: 768px) {
+    .weather-details {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+  }
   
   /* Stat label */
   .stat-label {

@@ -2,7 +2,7 @@ import React from "react";
 
 const HourlyWeather = ({ hourlyForecast }) => {
   // Đảm bảo forecastList luôn là một mảng
-  const forecastList = Array.isArray(hourlyForecast?.list) ? hourlyForecast.list : [];
+  const forecastList = Array.isArray(hourlyForecast) ? hourlyForecast : [];
 
   return (
     <div className="w-full md:px-50 p-4 bg-[#cbf2e2]">

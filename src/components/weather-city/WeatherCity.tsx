@@ -1,10 +1,39 @@
 import React from "react";
 import dayjs from "dayjs";
-import "./WeatherCity.css"; // Import the CSS file
+import "./WeatherCity.css";
 
 interface Props {
   dataWeather: any;
 }
+export const WEATHER_STATS = (dataWeather: any) => [
+  {
+    label: "Thấp/Cao",
+    value: `${Math.round(dataWeather.main?.temp_min)}°C / ${Math.round(
+      dataWeather.main?.temp_max
+    )}°C`,
+    url: "./image/thermometer.png",
+  },
+  {
+    label: "Độ ẩm",
+    value: `${dataWeather.main?.humidity}%`,
+    url: "./image/humidity.png",
+  },
+  {
+    label: "Áp suất",
+    value: `${dataWeather.main?.pressure} hPa`,
+    url: "./image/gauge.png",
+  },
+  {
+    label: "Tầm nhìn",
+    value: `${dataWeather.visibility ? dataWeather.visibility / 1000 : "-"} km`,
+    url: "./image/view.png",
+  },
+  {
+    label: "Gió",
+    value: `${dataWeather.wind?.speed} km/h`,
+    url: "./image/wind.png",
+  },
+];
 
 const WeatherCity = (props: Props) => {
   const { dataWeather } = props;
@@ -31,13 +60,7 @@ const WeatherCity = (props: Props) => {
           <hr className="separator" />
           <div className="weather-stats">
             <div className="stats-grid">
-              {[
-                { label: "Thấp/Cao", value: `${Math.round(dataWeather.main?.temp_min)}°C / ${Math.round(dataWeather.main?.temp_max)}°C`, url: "./image/thermometer.png" },
-                { label: "Độ ẩm", value: `${dataWeather.main?.humidity}%`, url: "./image/humidity.png" },
-                { label: "Áp suất", value: `${dataWeather.main?.pressure} hPa`, url: "./image/gauge.png" },
-                { label: "Tầm nhìn", value: `${dataWeather.visibility ? dataWeather.visibility / 1000 : "-"} km`, url: "./image/view.png" },
-                { label: "Gió", value: `${dataWeather.wind?.speed} km/h`, url: "./image/wind.png" },
-              ].map((item, index) => (
+              {WEATHER_STATS(dataWeather).map((item, index) => (
                 <div key={index} className="stat-item">
                   <img src={item.url} width={20} height={20} alt={item.label} />
                   <p className="stat-label">{item.label}</p>
