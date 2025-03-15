@@ -93,7 +93,7 @@ const App = () => {
           dataForecast={dataForecast}
         />
       </div>
-      {/* <HourlyWeather hourlyForecast={dataForecast} /> */}
+      <HourlyWeather hourlyForecast={dataForecast} />
       <div className="flex flex-col md:flex-row gap-4 w-full md:px-48 md:py-8">
         <WeatherDays
           dataWeather={dataWeather}

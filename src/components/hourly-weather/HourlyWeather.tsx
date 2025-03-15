@@ -5,7 +5,7 @@ const HourlyWeather = ({ hourlyForecast }) => {
   const forecastList = Array.isArray(hourlyForecast) ? hourlyForecast : [];
 
   return (
-    <div className="w-full md:px-50 p-4 bg-[#cbf2e2]">
+    <div className="w-full md:px-52 p-4 bg-[#cbf2e2]">
       <div className="md:w-[70%] w-full p-4 rounded-xl bg-white">
         <p className="font-600 text-[18px]">Dự báo theo giờ</p>
         <div className="hourly-scroll flex flex-row gap-4 overflow-x-auto">
