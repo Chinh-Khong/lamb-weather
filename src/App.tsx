@@ -14,7 +14,7 @@ const App = () => {
   const [error, setError] = useState(null);
   const [dataForecast, setDataForecast] = useState(null);
   const [airPollutionData, setAirPollutionData] = useState(null);
-  const [city, setCity] = useState('');
+  const [city, setCity] = useState('new york');
   const [debouncedCity, setDebouncedCity] = useState(city);
 
   // Debounce effect for search input
@@ -106,18 +106,6 @@ const App = () => {
   return (
     <div className="w-full h-full">
       <HeaderWeather callAPIWeather={callAPIWeather} />
-      
-      {/* Search input field with debounce */}
-      <div className="search-container p-4">
-        <input 
-          type="text" 
-          value={city} 
-          onChange={(e) => setCity(e.target.value)} 
-          placeholder="Nhập tên thành phố" 
-          className="search-input p-2 rounded-md"
-        />
-      </div>
-
       <div
         className="weather-container"
         style={{ backgroundImage: "url('/image/bg-home-lancapse.jpg')" }}
@@ -128,8 +116,7 @@ const App = () => {
           dataForecast={dataForecast}
         />
       </div>
-      <HourlyWeather hourlyForecast={dataForecast} />
-      
+
       <div className="flex flex-col md:flex-row gap-4 w-full md:px-48 md:py-8">
         <div className="flex flex-col gap-4 md:w-[70%] w-full">
           <HourlyWeather hourlyForecast={dataForecast} />
@@ -138,11 +125,10 @@ const App = () => {
             nameCity={dataWeather && dataWeather.name}
           />
         </div>
-      </div>
-
-      <div className="md:w-40% flex flex-col gap-6">
-        {_renderBinhMinh()}
-        <WeatherAirPollution airPollutionData={airPollutionData} />
+        <div className="md:w-40% flex flex-col gap-6">
+          {_renderBinhMinh()}
+          <WeatherAirPollution airPollutionData={airPollutionData} />
+        </div>
       </div>
 
       <div className="container mx-auto p-4">

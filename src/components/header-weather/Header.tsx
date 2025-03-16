@@ -1,7 +1,7 @@
 import { ClockCircleOutlined, SearchOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import React, { useEffect, useState } from "react";
-import "./Header.css";
+import "./header.css";
 
 interface Props {
   callAPIWeather: (cityName: string) => void;
@@ -57,7 +57,7 @@ const HeaderWeather = (props: Props) => {
           alt="Weather Logo"
         />
         <div className="search-container">
-          <div className="md:min-w-[500px] bg-[#ffffff14] rounded-l-md flex flex-col relative">
+          <div className="md:min-w-[500px] bg-[#ffffff14] rounded-l-md flex flex-col relative h-full">
             <div className="flex flex-row justify-between items-center h-full rounded-md">
               <input
                 placeholder="Tìm kiếm"
