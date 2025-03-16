@@ -7,29 +7,29 @@ interface Props {
 }
 export const WEATHER_STATS = (dataWeather: any) => [
   {
-    label: "Thấp/Cao",
+    label: "Low/high",
     value: `${Math.round(dataWeather.main?.temp_min)}°C / ${Math.round(
       dataWeather.main?.temp_max
     )}°C`,
     url: "./image/thermometer.png",
   },
   {
-    label: "Độ ẩm",
+    label: "Humidity",
     value: `${dataWeather.main?.humidity}%`,
     url: "./image/humidity.png",
   },
   {
-    label: "Áp suất",
+    label: "Gauge",
     value: `${dataWeather.main?.pressure} hPa`,
     url: "./image/gauge.png",
   },
   {
-    label: "Tầm nhìn",
+    label: "View",
     value: `${dataWeather.visibility ? dataWeather.visibility / 1000 : "-"} km`,
     url: "./image/view.png",
   },
   {
-    label: "Gió",
+    label: "Wind",
     value: `${dataWeather.wind?.speed} km/h`,
     url: "./image/wind.png",
   },
@@ -40,8 +40,8 @@ const WeatherCity = (props: Props) => {
 
   return (
     <div className="weather-city">
-      <p className="city-name">Dự báo thời tiết {dataWeather && dataWeather.name}</p>
-      <p>Hôm nay, {dayjs().format("DD/MM/YYYY")}</p>
+      <p className="city-name">Weather forecast in {dataWeather && dataWeather.name}</p>
+      <p>Today, {dayjs().format("DD/MM/YYYY")}</p>
       {dataWeather ? (
         <div className="weather-info">
           <div className="weather-details">
@@ -54,7 +54,7 @@ const WeatherCity = (props: Props) => {
             <p className="temperature">{dataWeather.main.temp}°</p>
             <div className="weather-description">
               <p className="description">{dataWeather.weather[0].description}</p>
-              <p className="feels-like">Cảm giác như {dataWeather.main.feels_like}°C</p>
+              <p className="feels-like">Feels like  {dataWeather.main.feels_like}°C</p>
             </div>
           </div>
           <hr className="separator" />
@@ -71,7 +71,7 @@ const WeatherCity = (props: Props) => {
           </div>
         </div>
       ) : (
-        <p>Không có dữ liệu</p>
+        <p>Data unavailable!</p>
       )}
     </div>
   );

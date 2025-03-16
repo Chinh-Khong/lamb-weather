@@ -1,5 +1,6 @@
 import dayjs from "dayjs";
 import React from "react";
+import "./WeatherSession.css";
 
 interface Props {
   dataWeather: any,
@@ -32,25 +33,25 @@ const WeatherSession = (props: Props) => {
   const forecast = getGroupedForecast();
 
   return (
-    <div className='pt-5 pb-16 md:px-10 w-full px-[15px] flex flex-col gap-4 text-[#003870] max-w-[550px] shadow-xl rounded-[12px] border border-gray-300 bg-white'>
-      <p className='font-bold text-[20px] hover:text-[#098d4b]'>
-        Nhiệt độ {dataWeather && dataWeather.name}
+    <div className="session-container">
+      <p className="city-name">
+         {dataWeather && dataWeather.name} temperature
       </p>
-      <div className='inline-grid md:grid-cols-4 grid-cols-2 gap-[8px]'>
+      <div className="session-content">
         {forecast &&
           Object.entries(forecast).map(([time, data]: any, index) => (
             <div
               key={index}
-              className='flex flex-col justify-between items-center gap-4 border-r-1 border-gray-100 pr-2'
+              className="session-detail"
             >
-              <p className='font-[600] text-[22px]'>
+              <p className="title">
                 {time === "morning"
-                  ? "Sáng"
-                  : time === "noon"
-                    ? "Trưa"
+                  ? "Morning"
+                  : time === "midday"
+                    ? "Midday"
                     : time === "afternoon"
-                      ? "Chiều"
-                      : "Tối"}
+                      ? "Afternoon "
+                      : "Evening"}
               </p>
               <img
                 src={`http://openweathermap.org/img/wn/${data?.weather[0].icon}@2x.png`}
@@ -58,7 +59,7 @@ const WeatherSession = (props: Props) => {
                 width={87}
                 height={87}
               />
-              <p className="text-[18px] font-[400]">
+              <p className="session-temp">
                 {data ? `${Math.round(data.main.temp_min)}° / ${Math.round(data.main.temp_max)}°` : "N/A"}
               </p>
             </div>

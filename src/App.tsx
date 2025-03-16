@@ -5,6 +5,7 @@ import WeatherCity from './components/weather-city/WeatherCity.tsx';
 import HourlyWeather from './components/hourly-weather/HourlyWeather.tsx';
 import WeatherSession from './components/weather-session/WeatherSession.tsx';
 import WeatherDays from './components/weather-days/WeatherDays.tsx';
+import "./App.css";
 
 const App = () => {
   const APIKey = "7a7cd355202c6439978c3c98b07dda6a";
@@ -26,10 +27,10 @@ const App = () => {
 
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${APIKey}&units=metric&lang=vi`
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${APIKey}&units=metric&lang=en`
       );
       const responseForecast = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${APIKey}&units=metric&lang=vi`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${APIKey}&units=metric&lang=en`
       );
       const resngafy = await fetch(
         `https://api.openweathermap.org/data/3.0/onecall/timemachine?lat=39.099724&lon=-94.578331&dt=1643803200&appid="97c384b07577b174d93727e571569e75"`
@@ -78,13 +79,13 @@ const App = () => {
 
 
   return (
-    <div className="App w-full h-full">
+    <div className="w-full h-full">
       <HeaderWeather callAPIWeather={callAPIWeather} />
-      <div className='w-full bg-[#015e3f] p-3 shadow-lg flex items-center'>
+      {/* <div className='w-full bg-[#015e3f] p-3 shadow-lg flex items-center'>
         {_renderNgafy()}
-      </div>
+      </div> */}
       <div
-        className='bg-cover bg-center bg-no-repeat pt-10 pb-16 flex flex-col md:flex-row justify-center items-center gap-9 px-2'
+        className="weather-container"
         style={{ backgroundImage: "url('/image/bg-home-lancapse.jpg')" }}
       >
         <WeatherCity dataWeather={dataWeather} />
@@ -93,7 +94,7 @@ const App = () => {
           dataForecast={dataForecast}
         />
       </div>
-      <HourlyWeather hourlyForecast={dataForecast} />
+      {/* <HourlyWeather hourlyForecast={dataForecast} />
       <div className="flex flex-col md:flex-row gap-4 w-full md:px-48 md:py-8">
         <WeatherDays
           dataWeather={dataWeather}
@@ -101,7 +102,7 @@ const App = () => {
         <div className="md:w-40% bg-red-500">
           Chính
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

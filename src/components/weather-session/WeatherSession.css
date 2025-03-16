@@ -1,0 +1,82 @@
+.session-container {
+    padding: 0px 15px  ;
+    padding-bottom: 70px;
+    padding-top: 10px;
+    width: 100%; 
+   
+    display: flex;
+    flex-direction: column;
+    gap: 16px; 
+    color: #003870; 
+    max-width: 550px; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+    border-radius: 12px; 
+    border: 1px solid #d1d5db; 
+    background-color: white; 
+}
+
+.citi-name {
+    font-weight: bold; 
+    font-size: 20px; 
+}
+
+.citi-name:hover {
+    color: #098d4b; 
+}
+
+.session-content {
+    display: inline-grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); 
+    gap: 8px; 
+}
+
+.session-detail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px; 
+    border-right: 1px solid #f3f4f6; 
+    padding-right: 8px; 
+}
+
+.title {
+    font-weight: 600; 
+    font-size: 22px; 
+}
+
+.session-temp {
+    font-size: 18px; 
+    font-weight: 400; 
+}
+
+@media (min-width: 768px) { 
+    .session-container {
+        padding-left: 40px; 
+        padding-right: 40px; 
+    }
+
+    .session-content {
+        grid-template-columns: repeat(4, minmax(0, 1fr)); 
+    }
+}
+@media (max-width:1024px) {
+    
+    .session-content {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .session-container{
+        padding: 15px;
+    }
+}
+@media (max-width:768px) {
+    .session-container{
+        width: 400px;
+    }
+    
+}
+@media (max-width: 500px) {
+    .session-container{
+        width: 90%;
+    }
+  }
