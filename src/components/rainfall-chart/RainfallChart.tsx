@@ -1,12 +1,13 @@
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Line } from "recharts";
+import "./RainfallChart.css";
 
 interface Props {
   hourlyForecast: any[]; // Dữ liệu từ API
 }
 
 const RainfallChart: React.FC<Props> = ({ hourlyForecast }) => {
-  if (!hourlyForecast) return <p>Đang tải dữ liệu...</p>;
+  if (!hourlyForecast) return <p>Data download...</p>;
 
   // Lấy dữ liệu dự báo trong 24 giờ (8 lần, mỗi lần 3 giờ)
   const data = hourlyForecast.slice(0, 8).map((item, index, array) => {
@@ -23,8 +24,8 @@ const RainfallChart: React.FC<Props> = ({ hourlyForecast }) => {
   });
 
   return (
-    <div className="w-full h-72 bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-lg font-bold mb-2">Lượng mưa trong những giờ tới</h2>
+    <div className="rainfall-container">
+      <h2 className="rainfall-title">Rainfall in the coming hours</h2>
       <ResponsiveContainer width="100%" height="90%">
         <BarChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />

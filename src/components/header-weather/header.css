@@ -22,6 +22,93 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.search-city {
+    min-width: 500px; /* Chỉ áp dụng cho màn hình md trở lên */
+  background-color: #ffffff14;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  height: 100%;
+}
+
+@media (max-width: 767px) {
+    .search-city {
+      min-width: auto; /* Hoặc không cần min-width */
+    }
+}
+
+.search-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    border-radius: 8px;
+}
+
+.custom-input {
+    background-color: rgba(255, 255, 255, 0.08); /* #ffffff14 */
+    width: 100%;
+    height: 100%;
+    border: none;
+    padding-left: 16px; /* px-4 (4 * 4px) */
+    padding-right: 16px; /* px-4 */
+    color: white;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    outline: none;
+  }
+  
+  /* Placeholder styling */
+  .custom-input::placeholder {
+    color: white;
+  }
+
+  .button-search {
+    padding-left: 8px;  /* px-2 (2 * 4px) */
+    padding-right: 8px;
+    background-color: rgba(255, 255, 255, 0.08);
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  .button-click {
+    padding: 8px 16px; /* py-2 px-4 (2 * 4px, 4 * 4px) */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #098d4b;
+    border-radius: 4px; /* rounded-sm */
+  }
+
+  .custom-dropdown {
+    position: absolute;
+    top: 44px; /* top-11 (11 * 4px) */
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* shadow-lg */
+    border-radius: 8px; /* rounded-md */
+  }
+
+  .item-dropdown {
+    padding: 4px;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .item-dropdown:hover {
+    background-color: rgb(243, 243, 243);
+  }
+  
+
 .search-bar {
     background-color: rgba(255, 255, 255, 0.0784);
     width: 100%;
@@ -50,7 +137,6 @@
 .button {
     padding: 10px 20px;
     display: flex;
-    /* align-items: center; */
     justify-content: center;
     cursor: pointer;
     background-color: #098d4b;
@@ -75,6 +161,7 @@
 .date-display {
     font-weight: 600;
 }
+
 @media (max-width: 768px) {
     .header-container {
         display: flex;

@@ -17,23 +17,20 @@ const App = () => {
   const [city, setCity] = useState('new york');
   const [debouncedCity, setDebouncedCity] = useState(city);
 
-  // Debounce effect for search input
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       setDebouncedCity(city);
-    }, 500); // Debounce time of 500ms
+    }, 500); 
 
-    return () => clearTimeout(timeoutId); // Cleanup timeout on component unmount or city change
+    return () => clearTimeout(timeoutId); 
   }, [city]);
 
-  // Fetch weather and forecast data when the debounced city changes
   useEffect(() => {
     if (debouncedCity) {
       callAPIWeather(debouncedCity);
     }
   }, [debouncedCity]);
 
-  // Fetch weather data for a city
   const callAPIWeather = async (cityName: string) => {
     if (!cityName.trim()) {
       setError("Vui lòng nhập tên thành phố!");
@@ -48,7 +45,7 @@ const App = () => {
       const responseForecast = await fetch(
         `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${APIKey}&units=metric&lang=en`
       );
-      if (!response.ok || !responseForecast.ok) throw new Error("Không thể lấy dữ liệu thời tiết!");
+      if (!response.ok || !responseForecast.ok) throw new Error("Weather data cannot be taken !");
 
       const data = await response.json();
       const dataForecast = await responseForecast.json();
@@ -61,7 +58,6 @@ const App = () => {
     }
   };
 
-  // Fetch air pollution data based on coordinates
   useEffect(() => {
     if (dataWeather && dataWeather.coord) {
       callAirPollutionData(dataWeather.coord.lat, dataWeather.coord.lon);
@@ -87,16 +83,16 @@ const App = () => {
     });
   };
 
-  const _renderBinhMinh = () => {
+  const _renderSunInfor = () => {
     return (
       <div
-        className="p-8 bg-cover bg-center bg-no-repeat rounded-md flex flex-col gap-16 text-white"
+        className="sun-info-container"
         style={{ backgroundImage: "url('/image/bg-sunrise-sunset.png')" }}>
-        <h2 className="text-xl font-bold">Bình minh / Hoàng hôn</h2>
+        <h2 className="sun-info-title">Sunrise / Sunset</h2>
         {dataWeather && (
-          <div className="flex flex-row justify-between text-xl font-bold">
+          <div className="sun-info-time">
             <p>{formatTime(dataWeather.sys.sunrise)} AM</p>
-            <p> {formatTime(dataWeather.sys.sunset)} PM</p>
+            <p>{formatTime(dataWeather.sys.sunset)} PM</p>
           </div>
         )}
       </div>
@@ -117,21 +113,21 @@ const App = () => {
         />
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 w-full md:px-48 md:py-8">
-        <div className="flex flex-col gap-10 md:w-[70%] w-full">
+      <div className="forecast-container">
+        <div className="forecast-content">
           <HourlyWeather hourlyForecast={dataForecast} />
           <WeatherDays
             dataWeather={dataForecast}
             nameCity={dataWeather && dataWeather.name}
           />
         </div>
-        <div className="md:w-40% flex flex-col gap-6">
-          {_renderBinhMinh()}
+        <div className="infor-container">
+          {_renderSunInfor()}
           <WeatherAirPollution airPollutionData={airPollutionData} />
         </div>
       </div>
 
-      <div className="md:px-48 p-12 w-full shadow-lg bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/image/bg-home-lancapse.jpg')" }}
+      <div className="rainfall-container" style={{ backgroundImage: "url('/image/bg-home-lancapse.jpg')" }}
       >
         {dataForecast && <RainfallChart hourlyForecast={dataForecast} />}
       </div>

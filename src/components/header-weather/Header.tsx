@@ -57,20 +57,20 @@ const HeaderWeather = (props: Props) => {
           alt="Weather Logo"
         />
         <div className="search-container">
-          <div className="md:min-w-[500px] bg-[#ffffff14] rounded-l-md flex flex-col relative h-full">
-            <div className="flex flex-row justify-between items-center h-full rounded-md">
+          <div className="search-city">
+            <div className="search-content">
               <input
                 placeholder="Tìm kiếm"
-                className="bg-[#ffffff14] w-full h-full border-none px-4 placeholder-white focus:outline-none text-white rounded-l-md"
+                className="custom-input"
                 onChange={(e) => {
                   setSearchData(e.target.value);
                   fetchCitySuggestions(e.target.value);
                 }}
                 onFocus={() => setShowSuggestions(true)}
               />
-              <div className="px-2 bg-[#ffffff14] h-full flex justify-center items-center rounded-r-md">
+              <div className="button-search">
                 <div
-                  className="py-2 px-4 flex items-center justify-center cursor-pointer bg-[#098d4b] rounded-sm"
+                  className="button-click"
                   onClick={handleSearch}
                 >
                   <SearchOutlined style={{ color: 'white', fontWeight: '600' }} />
@@ -78,11 +78,11 @@ const HeaderWeather = (props: Props) => {
               </div>
             </div>
             {showSuggestions && citySuggestions.length > 0 && (
-              <div className="absolute top-11 left-0 w-full bg-white shadow-lg rounded-md">
+              <div className="custom-dropdown">
                 {citySuggestions.map((city, index) => (
                   <div
                     key={index}
-                    className="p-2 hover:bg-gray-200 cursor-pointer"
+                    className="item-dropdown"
                     onClick={() => {
                       callAPIWeather(city.name);
                       setShowSuggestions(false);

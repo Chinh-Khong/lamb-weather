@@ -1,14 +1,15 @@
 import React from "react";
+import "./HourlyWeather.css";
 
 const HourlyWeather = ({ hourlyForecast }) => {
   // Đảm bảo forecastList luôn là một mảng
   const forecastList = Array.isArray(hourlyForecast) ? hourlyForecast : [];
 
   return (
-    <div className="flex flex-col gap-2 w-full rounded-lg border border-gray-200 shadow-lg">
-      <div className="w-full rounded-xl bg-white">
-        <p className="p-4 border-b border-gray-200 font-bold text-[18px]">Dự báo theo giờ</p>
-        <div className="hourly-scroll flex flex-row gap-4 overflow-x-auto p-4">
+    <div className="hour-forecast-container">
+      <div className="hour-content">
+        <p className="title">Hourly forecast</p>
+        <div className="hour-forecast-list">
           {forecastList.length > 0 ? (
             forecastList.slice(0, 8).map((hour, index) => {
               const formattedTime = hour.dt
@@ -19,7 +20,7 @@ const HourlyWeather = ({ hourlyForecast }) => {
               const description = hour.weather?.[0]?.description ?? "Không có mô tả";
 
               return (
-                <div key={index} className="hourly-item flex flex-col items-center p-2 min-w-[100px]">
+                <div key={index} className="hour-forecast-detail">
                   <p>{formattedTime}</p>
                   <img src={`https://openweathermap.org/img/wn/${weatherIcon}@2x.png`} alt="Weather icon" />
                   <p>{temperature}°C</p>

@@ -1,0 +1,14 @@
+.rainfall-container {
+    width: 100%;
+    height: 18rem; 
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.rainfall-title {
+    font-size: 1.125rem; 
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}

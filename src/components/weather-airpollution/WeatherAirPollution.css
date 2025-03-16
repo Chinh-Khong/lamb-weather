@@ -1,0 +1,54 @@
+.air-pollution-container {
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: black;
+    border: 1px solid #e5e7eb; 
+  }
+  
+  .air-pollution-header {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 16px;
+    border-bottom: 1px solid #e5e7eb;
+  }
+  
+  .air-pollution-content {
+    padding: 16px;
+  }
+  
+  .air-pollution-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .air-pollution-item span {
+    margin-right: 8px;
+    min-width: 40px;
+    font-weight: 500;
+  }
+  
+  
+  .aqi-good {
+    color: #22c55e; 
+  }
+  
+  .aqi-fair {
+    color: #eab308; 
+  }
+  
+  .aqi-moderate {
+    color: #f97316; 
+  }
+  
+  .aqi-poor {
+    color: #ef4444; 
+  }
+  
+  .aqi-very-poor {
+    color: #7e22ce; 
+  }
+  
+  .aqi-unknown {
+    color: #6b7280; 
+  }

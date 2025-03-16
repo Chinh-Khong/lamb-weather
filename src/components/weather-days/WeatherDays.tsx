@@ -1,6 +1,7 @@
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown } from "antd";
 import React from "react";
+import "./WeatherDays.css";
 
 interface Props {
   dataWeather: any;
@@ -14,27 +15,27 @@ export const WEATHER_STATS = (day: any) => {
 
   return [
     {
-      label: "Thấp/Cao",
+      label: "Low/high",
       value: `${Math.round(day.minTemp)}°C / ${Math.round(day.maxTemp)}°C`,
       url: "./image/thermometer.png",
     },
     {
-      label: "Độ ẩm",
+      label: "Humidity",
       value: `${day.humidity}%`,
       url: "./image/humidity.png",
     },
     {
-      label: "Áp suất",
+      label: "Gauge",
       value: `${day.pressure ? day.pressure : "-"} hPa`, 
       url: "./image/gauge.png",
     },
     {
-      label: "Tầm nhìn",
+      label: "View",
       value: `${day.visibility ? day.visibility / 1000 : "-"} km`, 
       url: "./image/view.png",
     },
     {
-      label: "Gió",
+      label: "Wind",
       value: `${day.windSpeed} km/h`,
       url: "./image/wind.png",
     },
@@ -71,20 +72,20 @@ const processForecastData = (dataForecast: any) => {
 
 const WeatherDays = (props: Props) => {
   const {dataWeather, nameCity} = props;
-  console.log(dataWeather, 'chinh132');
+  console.log(dataWeather);
   if (!dataWeather) return null;
 
   const fiveDayForecast = processForecastData(dataWeather);
   const _renderItemsDrop = (day: any) => {
     return (
       <div className="w-full">
-        <div className="grid md:grid-cols-5 grid-cols-3 gap-3 whitespace-nowrap justify-between items-center">
+        <div className="day-list">
           {WEATHER_STATS(day).map((item, index) => (
-            <div key={index} className="flex gap-3 items-center">
-              <img className="md:w-[20px] md:h-[30px] w-[20px] h-[20px]" src={item.url} width={20} height={30} alt={item.label} />
+            <div key={index} className="day-index">
+              <img className="weather-icon" src={item.url} width={20} height={30} alt={item.label} />
               <div>
-                <p className="text-[14px] font-[600]">{item.label}</p>
-                <p className="text-gray-600">{item.value}</p>
+                <p className="label">{item.label}</p>
+                <p className="value">{item.value}</p>
               </div>
             </div>
           ))}
@@ -94,9 +95,9 @@ const WeatherDays = (props: Props) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 w-full rounded-lg border border-gray-200 shadow-lg">
-      <p className="p-4 border-b border-gray-200 font-bold text-[18px]">
-        Dự báo thời tiết {nameCity} những ngày tới
+    <div className="day-forecast-container">
+      <p className="title">
+        Weather forecast for {nameCity} in the coming days
       </p>
       {fiveDayForecast.map((day, index) => (
         <Dropdown
@@ -104,13 +105,13 @@ const WeatherDays = (props: Props) => {
           menu={{ items: [{ label: _renderItemsDrop(day), key: `${index}` }] }}
           trigger={["click"]}
         >
-          <div className="py-5 px-4 border-b border-gray-100 flex justify-between text-[15px] cursor-pointer">
-            <div className="flex flex-row gap-8">
-              <p className="font-[600] text-[#18211e]">{day.date}</p>
-              <p className="text-[#18211ee6]">{Math.round(day.minTemp)}/{Math.round(day.maxTemp)}°C</p>
-              <div className="flex flex-row gap-2 items-center">
+          <div className="day-forecast-content">
+            <div className="day-forecast-detail">
+              <p className="date">{day.date}</p>
+              <p className="day-temp">{Math.round(day.minTemp)}/{Math.round(day.maxTemp)}°C</p>
+              <div className="day-infor">
                 <img src={`https://openweathermap.org/img/wn/${day.icon}.png`} alt={day.description} width={30} />
-                <p className="text-[#18211ee6]">{day.description}</p>
+                <p className="day-weather">{day.description}</p>
               </div>
             </div>
             <DownOutlined className="cursor-pointer" />
