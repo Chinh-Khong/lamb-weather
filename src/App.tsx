@@ -1,12 +1,12 @@
+import React, { useState, useEffect } from "react";
 import HeaderWeather from './components/header-weather/Header.tsx';
-import React from "react";
-import { useState, useEffect } from "react";
 import WeatherCity from './components/weather-city/WeatherCity.tsx';
 import HourlyWeather from './components/hourly-weather/HourlyWeather.tsx';
 import WeatherSession from './components/weather-session/WeatherSession.tsx';
 import WeatherDays from './components/weather-days/WeatherDays.tsx';
 import RainfallChart from './components/rainfall-chart/RainfallChart.tsx';
 import WeatherAirPollution from './components/weather-airpollution/WeatherAirPollution.tsx';
+import "./App.css";
 
 const App = () => {
   const APIKey = "7a7cd355202c6439978c3c98b07dda6a";
@@ -14,17 +14,26 @@ const App = () => {
   const [error, setError] = useState(null);
   const [dataForecast, setDataForecast] = useState(null);
   const [airPollutionData, setAirPollutionData] = useState(null);
+  const [city, setCity] = useState('new york');
+  const [debouncedCity, setDebouncedCity] = useState(city);
 
+  // Debounce effect for search input
   useEffect(() => {
-    callAPIWeather('Hà Nội');
-  }, []);
+    const timeoutId = setTimeout(() => {
+      setDebouncedCity(city);
+    }, 500); // Debounce time of 500ms
 
+    return () => clearTimeout(timeoutId); // Cleanup timeout on component unmount or city change
+  }, [city]);
+
+  // Fetch weather and forecast data when the debounced city changes
   useEffect(() => {
-    if (dataWeather && dataWeather.coord) {
-      callAirPollutionData(dataWeather.coord.lat, dataWeather.coord.lon);
+    if (debouncedCity) {
+      callAPIWeather(debouncedCity);
     }
-  }, [dataWeather]);
+  }, [debouncedCity]);
 
+  // Fetch weather data for a city
   const callAPIWeather = async (cityName: string) => {
     if (!cityName.trim()) {
       setError("Vui lòng nhập tên thành phố!");
@@ -34,10 +43,10 @@ const App = () => {
 
     try {
       const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${APIKey}&units=metric&lang=vi`
+        `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${APIKey}&units=metric&lang=en`
       );
       const responseForecast = await fetch(
-        `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${APIKey}&units=metric&lang=vi`
+        `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${APIKey}&units=metric&lang=en`
       );
       if (!response.ok || !responseForecast.ok) throw new Error("Không thể lấy dữ liệu thời tiết!");
 
@@ -51,6 +60,13 @@ const App = () => {
       setDataWeather(null);
     }
   };
+
+  // Fetch air pollution data based on coordinates
+  useEffect(() => {
+    if (dataWeather && dataWeather.coord) {
+      callAirPollutionData(dataWeather.coord.lat, dataWeather.coord.lon);
+    }
+  }, [dataWeather]);
 
   const callAirPollutionData = async (lat, lon) => {
     try {
@@ -85,13 +101,13 @@ const App = () => {
         )}
       </div>
     );
-  }
+  };
 
   return (
-    <div className="App w-full h-full">
+    <div className="w-full h-full">
       <HeaderWeather callAPIWeather={callAPIWeather} />
       <div
-        className='bg-cover bg-center bg-no-repeat pt-10 pb-16 flex flex-col md:flex-row justify-center items-center gap-9 px-2'
+        className="weather-container"
         style={{ backgroundImage: "url('/image/bg-home-lancapse.jpg')" }}
       >
         <WeatherCity dataWeather={dataWeather} />
@@ -100,6 +116,7 @@ const App = () => {
           dataForecast={dataForecast}
         />
       </div>
+
       <div className="flex flex-col md:flex-row gap-4 w-full md:px-48 md:py-8">
         <div className="flex flex-col gap-4 md:w-[70%] w-full">
           <HourlyWeather hourlyForecast={dataForecast} />
@@ -113,9 +130,9 @@ const App = () => {
           <WeatherAirPollution airPollutionData={airPollutionData} />
         </div>
       </div>
+
       <div className="container mx-auto p-4">
         {dataForecast && <RainfallChart hourlyForecast={dataForecast} />}
-
       </div>
     </div>
   );
