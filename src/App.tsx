@@ -131,7 +131,7 @@ const App = () => {
         </div>
       </div>
 
-      <div className="container mx-auto p-4">
+      <div className="md:px-48 p-8 w-full shadow-2xl">
         {dataForecast && <RainfallChart hourlyForecast={dataForecast} />}
       </div>
     </div>
