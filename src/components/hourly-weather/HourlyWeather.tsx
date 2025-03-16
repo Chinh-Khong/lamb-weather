@@ -5,10 +5,10 @@ const HourlyWeather = ({ hourlyForecast }) => {
   const forecastList = Array.isArray(hourlyForecast) ? hourlyForecast : [];
 
   return (
-    <div className="flex flex-col gap-2 w-full rounded-lg border border-gray-200 shadow-xl">
-      <div className="w-full p-4 rounded-xl bg-white">
+    <div className="flex flex-col gap-2 w-full rounded-lg border border-gray-200 shadow-lg">
+      <div className="w-full rounded-xl bg-white">
         <p className="p-4 border-b border-gray-200 font-bold text-[18px]">Dự báo theo giờ</p>
-        <div className="hourly-scroll flex flex-row gap-4 overflow-x-auto">
+        <div className="hourly-scroll flex flex-row gap-4 overflow-x-auto p-4">
           {forecastList.length > 0 ? (
             forecastList.slice(0, 8).map((hour, index) => {
               const formattedTime = hour.dt

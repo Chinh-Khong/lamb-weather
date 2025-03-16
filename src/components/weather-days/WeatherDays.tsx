@@ -94,7 +94,7 @@ const WeatherDays = (props: Props) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 w-full rounded-lg border border-gray-200 shadow-xl">
+    <div className="flex flex-col gap-2 w-full rounded-lg border border-gray-200 shadow-lg">
       <p className="p-4 border-b border-gray-200 font-bold text-[18px]">
         Dự báo thời tiết {nameCity} những ngày tới
       </p>

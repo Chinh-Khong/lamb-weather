@@ -90,7 +90,7 @@ const App = () => {
   const _renderBinhMinh = () => {
     return (
       <div
-        className="bg-red-500 p-8 bg-cover bg-center bg-no-repeat rounded-md flex flex-col gap-16 text-white"
+        className="p-8 bg-cover bg-center bg-no-repeat rounded-md flex flex-col gap-16 text-white"
         style={{ backgroundImage: "url('/image/bg-sunrise-sunset.png')" }}>
         <h2 className="text-xl font-bold">Bình minh / Hoàng hôn</h2>
         {dataWeather && (
@@ -118,7 +118,7 @@ const App = () => {
       </div>
 
       <div className="flex flex-col md:flex-row gap-4 w-full md:px-48 md:py-8">
-        <div className="flex flex-col gap-4 md:w-[70%] w-full">
+        <div className="flex flex-col gap-10 md:w-[70%] w-full">
           <HourlyWeather hourlyForecast={dataForecast} />
           <WeatherDays
             dataWeather={dataForecast}
@@ -131,7 +131,8 @@ const App = () => {
         </div>
       </div>
 
-      <div className="md:px-48 p-8 w-full shadow-2xl">
+      <div className="md:px-48 p-12 w-full shadow-lg bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/image/bg-home-lancapse.jpg')" }}
+      >
         {dataForecast && <RainfallChart hourlyForecast={dataForecast} />}
       </div>
     </div>
