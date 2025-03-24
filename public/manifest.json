@@ -3,17 +3,17 @@
   "name": "Create React App Sample",
   "icons": [
     {
-      "src": "weather-logo.png",
+      "src": ".image/weather-logo.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/png"
     },
     {
-      "src": "weather-logo.png",
+      "src": "./image/weather-logo.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "weather-logo.png",
+      "src": "./image/weather-logo.png",
       "type": "image/png",
       "sizes": "512x512"
     }

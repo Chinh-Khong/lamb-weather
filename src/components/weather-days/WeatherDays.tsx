@@ -72,7 +72,6 @@ const processForecastData = (dataForecast: any) => {
 
 const WeatherDays = (props: Props) => {
   const {dataWeather, nameCity} = props;
-  console.log(dataWeather);
   if (!dataWeather) return null;
 
   const fiveDayForecast = processForecastData(dataWeather);
