@@ -99,7 +99,7 @@ const HeaderWeather = (props: Props) => {
       </div>
 
       <div className="clock-container">
-        <span className="clock"><ClockCircleOutlined /> Local time:</span>
+        <span className="clock"><ClockCircleOutlined /> Local time: Chính khổng</span>
         <div className="clock-detail">
           <span className="time-display">
             {currentTime.format('HH:mm:ss')}
